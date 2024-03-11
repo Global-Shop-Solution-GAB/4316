@@ -1,0 +1,18 @@
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Setup Hook: 17301. Quote Won transfered to Sales Order. Hook 17301 is before Sales Order generated screen shows up
+v.Local..BulkDeclareString(sQuoteLinkID, sOrderLinkID)
+
+Function.Global.DocumentControl.GetLinkID(v.passed.Quote, 50, v.Local.sQuoteLinkID)
+F.Intrinsic.Control.If(v.Local.sQuoteLinkID,<>,"-1")
+	Function.Global.DocumentControl.CreateReference(v.Passed.Order, 45,v.Local.sOrderLinkID)
+	Function.Global.DocumentControl.CopyExt(v.Local.sQuoteLinkID, v.Local.sOrderLinkID, false, true, V.Ambient.PUser)
+F.Intrinsic.Control.Endif
+Program.Sub.Main.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$$}$1/20/2017 10:03:07 AM$}$False
+Program.Sub.Comments.End
